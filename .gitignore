@@ -131,3 +131,4 @@ dmypy.json
 # manual .gitignores
 .idea/
 creditcard.csv
+data/
