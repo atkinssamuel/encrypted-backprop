@@ -48,7 +48,7 @@ def preprocess():
     if not path.exists(Directories.data):
         os.mkdir(Directories.data)
 
-    if not path.exists(Files.balanced_data) or True:
+    if not path.exists(Files.balanced_data):
         df = pd.read_csv(Files.raw_data)
 
         df = rebalance(df)
