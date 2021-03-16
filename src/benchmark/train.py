@@ -128,7 +128,6 @@ def train_model(model, name, training_data, validation_data=None, batch_size=1, 
         plt.savefig(Files.benchmark_validation_loss)
         plt.close()
 
-
     torch.save(best_model.state_dict(), Directories.benchmark_best_model + best_model_string)
 
     print("Final Training Accuracy: {}".format(train_acc[-1]))
