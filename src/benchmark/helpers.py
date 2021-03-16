@@ -4,6 +4,10 @@ import numpy as np
 import math
 
 
+def round_sig(x, sig=2):
+    return round(x, sig-int(math.floor(math.log10(abs(x))))-1)
+
+
 def get_accuracy(model, data):
     correct = 0
     total = 0

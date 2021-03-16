@@ -132,4 +132,4 @@ dmypy.json
 .idea/
 creditcard.csv
 data/
-models/
+models/other/
