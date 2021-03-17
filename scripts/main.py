@@ -1,7 +1,8 @@
 from src.preprocessing import preprocess
-from src.benchmark.benchmark_main import run_benchmark
+from plaintext.plaintext_main import run_plaintext
+
 
 if __name__ == "__main__":
     preprocess()
-    run_benchmark()
+    run_plaintext()
     print("Hello World")

@@ -1,4 +1,5 @@
-from src.benchmark.helpers import get_accuracy, get_loss, round_sig
+from benchmark.helpers import get_accuracy, get_loss
+from src.helpers import round_sig
 from src.constants import Directories, Files
 from os import path
 
@@ -13,8 +14,8 @@ import scipy.signal
 import shutil
 
 
-def train_model(model, name, training_data, validation_data=None, batch_size=1, epoch_count=1, shuffle=False,
-                learning_rate=0.01, checkpoint_frequency=5):
+def train_model(model, name, training_data, validation_data=None, batch_size=1, epoch_count=1, learning_rate=0.01,
+                checkpoint_frequency=5):
     # creating results folder if it doesn't exist
     if not path.exists(Directories.benchmark_results):
         os.mkdir(Directories.benchmark_results)
@@ -26,7 +27,6 @@ def train_model(model, name, training_data, validation_data=None, batch_size=1, 
     os.mkdir(Directories.benchmark_models)
     os.mkdir(Directories.benchmark_other_models)
     os.mkdir(Directories.benchmark_best_model)
-
 
     criterion = nn.BCELoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)

@@ -1,6 +1,5 @@
 import torch
-from src.benchmark.helpers import get_accuracy
-from src.constants import Directories
+from benchmark.helpers import get_accuracy
 
 
 def test_model(model, model_name, data):
