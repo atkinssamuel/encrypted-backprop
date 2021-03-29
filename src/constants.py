@@ -42,9 +42,9 @@ class Benchmark:
     """
     Contains the hyper-parameters for the benchmark network
     """
-    epoch_count = 50
-    batch_size = 1024*2
-    learning_rate = 0.001
+    epoch_count = 6
+    batch_size = 1024
+    learning_rate = 0.005
     checkpoint_frequency = 20
 
 
@@ -52,7 +52,7 @@ class Plaintext:
     """
     Contains the hyper-parameters for the plaintext network
     """
-    epoch_count = 50
-    batch_size = 1024*2
-    learning_rate = 0.001
-    checkpoint_frequency = 20
+    epoch_count = 20
+    batch_size = 1024
+    learning_rate = 0.005
+    checkpoint_frequency = 40

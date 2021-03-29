@@ -1,5 +1,5 @@
 from benchmark.helpers import get_accuracy, get_loss
-from src.helpers import round_sig
+from src.helpers import round_sig, binary_cross_entropy
 from src.constants import Directories, Files
 from os import path
 
@@ -29,7 +29,7 @@ def train_model(model, name, training_data, validation_data=None, batch_size=1, 
     os.mkdir(Directories.benchmark_best_model)
 
     criterion = nn.BCELoss()
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+    optimizer = optim.SGD(model.parameters(), lr=learning_rate)
     iterations, losses, train_acc, validation_acc, validation_loss = [], [], [], [], []
 
     min_valid_loss = None
@@ -52,14 +52,24 @@ def train_model(model, name, training_data, validation_data=None, batch_size=1, 
             loss.backward()  # backward pass (compute parameter updates)
             optimizer.step()  # make the updates for each parameter
 
+            # computing loss using user-defined binary_cross_entropy function for accurate benchmarking
+            manual_losses = binary_cross_entropy(outputs.detach().numpy().flatten(), labels.detach().numpy().flatten())
+            manual_loss_average = np.average(manual_losses)
+
             # save the current training information
             iterations.append(current_iteration)
-            losses.append(float(loss) / batch_size)  # compute *average* loss
+            losses.append(manual_loss_average)
             train_acc.append(get_accuracy(model, training_data))  # compute training accuracy
 
             if validation_data is not None:
                 validation_acc.append(get_accuracy(model, validation_data))
-                validation_loss.append(get_loss(model, validation_data))
+                valid_inputs = torch.tensor(validation_data.drop("Class", axis=1).values).reshape(shape=(-1, 1, 30))
+                valid_labels = torch.tensor(validation_data["Class"].values).reshape(shape=(-1, 1, 1))
+                valid_outputs = model(valid_inputs.float())
+                valid_losses = binary_cross_entropy(valid_outputs.detach().numpy().flatten(),
+                                                     valid_labels.detach().numpy().flatten())
+                valid_loss_average = np.average(valid_losses)
+                validation_loss.append(valid_loss_average)
 
             # checkpoint:
             if current_iteration % checkpoint_frequency == 0:
