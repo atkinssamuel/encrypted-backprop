@@ -44,7 +44,7 @@ def train_model(model, name, training_data, validation_data=None, batch_size=1, 
     for epoch in range(epoch_count):
         batch_number = 0
         for batch in np.array_split(training_data, num_batches):
-            inputs = torch.tensor(batch.drop("Class", axis=1).values).reshape(shape=(-1, 1, 30))
+            inputs = torch.tensor(batch.drop("Class", axis=1).values).reshape(shape=(-1, 1, 1024))
             labels = torch.tensor(batch["Class"].values).reshape(shape=(-1, 1, 1))
             optimizer.zero_grad()  # a clean up step for PyTorch
             outputs = model(inputs.float())  # forward pass
@@ -63,7 +63,7 @@ def train_model(model, name, training_data, validation_data=None, batch_size=1, 
 
             if validation_data is not None:
                 validation_acc.append(get_accuracy(model, validation_data))
-                valid_inputs = torch.tensor(validation_data.drop("Class", axis=1).values).reshape(shape=(-1, 1, 30))
+                valid_inputs = torch.tensor(validation_data.drop("Class", axis=1).values).reshape(shape=(-1, 1, 1024))
                 valid_labels = torch.tensor(validation_data["Class"].values).reshape(shape=(-1, 1, 1))
                 valid_outputs = model(valid_inputs.float())
                 valid_losses = binary_cross_entropy(valid_outputs.detach().numpy().flatten(),
@@ -111,7 +111,7 @@ def train_model(model, name, training_data, validation_data=None, batch_size=1, 
     # Raw plot:
     # plt.plot(iterations, train_acc, label="Train")
     # savgol filter:
-    plt.plot(iterations, scipy.signal.savgol_filter(np.array(train_acc), polyorder=5, window_length=31), label="Train")
+    plt.plot(iterations, scipy.signal.savgol_filter(np.array(train_acc), polyorder=3, window_length=5), label="Train")
     plt.grid(True)
     plt.xlabel("Iterations")
     plt.ylabel("Training Accuracy")

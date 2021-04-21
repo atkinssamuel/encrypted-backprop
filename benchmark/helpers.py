@@ -7,7 +7,7 @@ import numpy as np
 def get_accuracy(model, data):
     correct = 0
     total = 0
-    inputs = torch.tensor(data.drop("Class", axis=1).values).reshape(shape=(-1, 1, 30))
+    inputs = torch.tensor(data.drop("Class", axis=1).values).reshape(shape=(-1, 1, 1024))
     labels = torch.tensor(data["Class"].values).reshape(shape=(-1, 1, 1))
     outputs = model(inputs.float()).detach().numpy()
     outputs = np.round(outputs)
@@ -20,7 +20,7 @@ def get_accuracy(model, data):
 
 def get_loss(model, data):
     criterion = nn.BCELoss()
-    inputs = torch.tensor(data.drop("Class", axis=1).values).reshape(shape=(-1, 1, 30))
+    inputs = torch.tensor(data.drop("Class", axis=1).values).reshape(shape=(-1, 1, 1024))
     labels = torch.tensor(data["Class"].values).reshape(shape=(-1, 1, 1))
     outputs = model(inputs.float())
     loss = criterion(outputs, labels.float())

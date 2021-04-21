@@ -133,3 +133,4 @@ dmypy.json
 creditcard.csv
 data/
 **/models/other/
+.vs

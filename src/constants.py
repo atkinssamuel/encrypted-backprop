@@ -20,10 +20,8 @@ class Files:
     """
     Contains all of the file names for this repository
     """
-    # data files
-    zipped_data = Directories.raw + "creditcard.zip"
-    raw_data = Directories.raw + "creditcard.csv"
-    balanced_data = Directories.data + "balanced.pkl"
+    # androgen data file
+    androgen_data = Directories.raw + "qsar_androgen_receptor.csv"
 
     # benchmark files
     benchmark_training_loss = Directories.benchmark_results + "training_loss.png"
@@ -42,17 +40,17 @@ class Benchmark:
     """
     Contains the hyper-parameters for the benchmark network
     """
-    epoch_count = 6
-    batch_size = 1024
+    epoch_count = 1
+    batch_size = 64
     learning_rate = 0.005
-    checkpoint_frequency = 20
+    checkpoint_frequency = 1
 
 
 class Plaintext:
     """
     Contains the hyper-parameters for the plaintext network
     """
-    epoch_count = 20
-    batch_size = 1024
+    epoch_count = 1
+    batch_size = 64
     learning_rate = 0.005
-    checkpoint_frequency = 40
+    checkpoint_frequency = 1

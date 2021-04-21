@@ -13,7 +13,14 @@ def run_benchmark():
     Trains and tests a fully-connected benchmark model using PyTorch
     :return: None
     """
-    df = pd.read_pickle(Files.balanced_data)
+    def string_to_int(entry):
+        if entry == "positive":
+            return 1
+        return 0
+
+    df = pd.read_csv(Files.androgen_data, sep=";", header=None)
+    df.rename(columns={1024: "Class"}, inplace=True)
+    df["Class"] = df["Class"].map(string_to_int)
 
     train, validate, test = np.split(df.sample(frac=1), [int(.6 * len(df)), int(.8 * len(df))])
 

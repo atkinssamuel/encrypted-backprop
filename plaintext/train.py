@@ -6,11 +6,6 @@ import math
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import scipy.signal
-import shutil
 
 
 def train_model(model, name, training_data, validation_data=None, batch_size=1, epoch_count=1, learning_rate=0.01,
@@ -52,7 +47,6 @@ def train_model(model, name, training_data, validation_data=None, batch_size=1, 
                 if not math.isnan(training_loss_average):
                     training_loss_average = round_sig(training_loss_average, 3)
                 training_loss_averages.append(training_loss_average)
-                print(training_loss_average)
                 print(f"Progress: {round(progress * 100, 2)}%, "
                       f"Batch {batch_number}/{num_batches}, "
                       f"Epoch {epoch}/{epoch_count}, "

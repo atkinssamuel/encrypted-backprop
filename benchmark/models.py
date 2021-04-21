@@ -5,7 +5,7 @@ class FCBenchmark(torch.nn.Module):
     def __init__(self):
         super(FCBenchmark, self).__init__()
 
-        input_size = 30
+        input_size = 1024
         hidden_layer_size = input_size * 2
         output_size = 1
 
@@ -25,7 +25,7 @@ class SingleLayerBenchmark(torch.nn.Module):
     def __init__(self):
         super(SingleLayerBenchmark, self).__init__()
 
-        input_size = 30
+        input_size = 1024
         output_size = 1
 
         self.fc1 = torch.nn.Linear(input_size, output_size)
